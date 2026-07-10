@@ -19,3 +19,4 @@ build/
 .mypy_cache/
 .ruff_cache/
 database/database/postgres_data
+ollama

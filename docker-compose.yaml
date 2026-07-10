@@ -38,10 +38,28 @@ services:
 
   langflow:
     image: langflowai/langflow:latest
+    container_name: langflow
     ports:
       - "7860:7860"
+    depends_on:
+      - ollama
+    environment:
+      LANGFLOW_SUPERUSER: admin
+      LANGFLOW_SUPERUSER_PASSWORD: admin123
     networks:
       - my_network
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ./ollama:/root/.ollama
+    networks:
+      - my_network
+    gpus: all
 
 volumes:
   postgres_data:
